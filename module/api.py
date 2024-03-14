@@ -8,7 +8,7 @@ from flask_cors import CORS
 # App imports
 from module.services.summary import SummaryService
 
-CORS_ALLOWED_ORIGIN = os.getenv('CORS_ALLOWED_ORIGIN', 'http://localhost:5173')
+CORS_ALLOWED_ORIGIN = os.getenv('CORS_ALLOWED_ORIGIN', 'http://localhost:5173').split(',')
 
 def init(summary_service: SummaryService):
     app = Flask(__name__)
