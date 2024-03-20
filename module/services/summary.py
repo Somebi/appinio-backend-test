@@ -26,10 +26,7 @@ def sanitize_text(text: str) -> str:
     return clean_text
 
 class SummaryService():
-    def __init__(self, db: Session):
-        self.db = db
-
-    def summarize(self, text: str):
+    def summarize(self, db: Session, text: str):
         # Perform summarization of incoming text
         logging.info(f'[Summary] performing summary over user provided text: {text}')
         result = generate_summary(text)
@@ -44,13 +41,13 @@ class SummaryService():
 
         # Save it into database
         create(
-            self.db,
+            db,
             **summary
         )
 
         return summary
-    def get_summaries(self):
-        results = read(self.db)
+    def get_summaries(self, db: Session):
+        results = read(db)
         response = []
         for summary in results:
             response.append(summary.to_dict())
